@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>AJAX Car Search Suggestion</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+<h3>Search Cars</h3>
+
+<input type="text" id="searchBox" placeholder="Type a car name..." autocomplete="off">
+
+<div id="suggestions"></div>
+
+<script>
+
+$(document).ready(function(){
+
+    var cars = [
+        "Toyota Camry","Honda Civic","Ford Mustang","BMW X5","Audi A4",
+        "Mercedes-Benz C-Class","Hyundai Creta","Kia Seltos","Tesla Model 3","Mahindra Thar"
+    ];
+
+    $("#searchBox").keyup(function(){
+
+        var query = $(this).val().toLowerCase();
+        var result = "";
+
+        if(query.length > 0){
+
+            $.each(cars,function(i,car){
+
+                if(car.toLowerCase().indexOf(query) !== -1){
+                    result += "<div class='item'>"+car+"</div>";
+                }
+
+            });
+
+            $("#suggestions").html(result).show();
+
+        }else{
+            $("#suggestions").hide();
+        }
+
+    });
+
+    $(document).on("click",".item",function(){
+
+        $("#searchBox").val($(this).text());
+        $("#suggestions").hide();
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
